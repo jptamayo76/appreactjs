@@ -5,8 +5,13 @@ pipeline {
         stage('Checkout from GitHub') {
             steps {
                 script {
-                    // Clonar el repositorio desde GitHub
-                    git 'https://github.com/jptamayo76/appreactjs.git'
+                    // Eliminar directorio existente para obtener una copia limpia
+                    deleteDir()
+                    
+                    // Clonar el repositorio desde la rama main
+                    checkout([$class: 'GitSCM', 
+                              branches: [[name: 'main']], 
+                              userRemoteConfigs: [[url: 'https://github.com/jptamayo76/appreactjs.git']]])
                 }
             }
         }

@@ -25,11 +25,38 @@ pipeline {
             }
         }
 
-        stage('Start Application') {
+//        stage('Start Test Application') {
+//            steps {
+//               script {
+//                    // Ejecutar el comando npm start
+//                    sh 'npm start'
+//                }
+//            }
+//        }
+
+        stage('Build Production Application') {
             steps {
                 script {
-                    // Ejecutar el comando npm start
-                    sh 'npm start'
+                    // Ejecutar npm run build
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Install Serve Component') {
+            steps {
+                script {
+                    // Instalar globalmente serve
+                    sh 'npm install -g serve'
+                }
+            }
+        }
+
+        stage('Start Production Application') {
+            steps {
+                script {
+                    // Ejecutar serve -s build
+                    sh 'serve -s build'
                 }
             }
         }
